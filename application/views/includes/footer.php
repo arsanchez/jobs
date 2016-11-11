@@ -2,7 +2,7 @@
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
+        <p class="text-muted">Copyright <?php echo date("Y"); ?> Argenis S&aacute;nchez(2014-1514)</p>
       </div>
     </footer>
 
