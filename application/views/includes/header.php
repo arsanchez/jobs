@@ -1,4 +1,7 @@
-
+<?php 
+  $active_tab = (isset($selected_tab)) ? $selected_tab : "home";
+  $title      = (isset($title)) ? $title : "JOBS";
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,10 +13,12 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Sticky Footer Navbar Template for Bootstrap</title>
+    <title><?php echo $title; ?></title>
 
     <!-- Bootstrap core CSS -->
+    
     <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/simple-sidebar.css'); ?>" rel="stylesheet">
 
     <style type="text/css">
         /* Sticky footer styles
@@ -57,6 +62,8 @@ code {
 }
     </style>
   </head>
+  <!-- getting the active tab -->
+  
 
   <body>
         <!-- Fixed navbar -->
@@ -69,13 +76,12 @@ code {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">JOBS</a>
+          <a class="navbar-brand" href="<?php echo base_url(); ?>"">JOBS</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#"><?php echo $this->lang->line('home'); ?></a></li>
-            <li><a href="#about"><?php echo $this->lang->line('about'); ?></a></li>
-            <li><a href="#contact"><?php echo $this->lang->line('affiliates'); ?></a></li>
+            <li class="<?php echo ($active_tab =="home") ? 'active' : ''; ?>"><a href="<?php echo base_url(); ?>""><?php echo $this->lang->line('home'); ?></a></li>
+            <li><a href="#contact" class="<?php echo ($active_tab =="affiliates") ? 'active' : ''; ?>"><?php echo $this->lang->line('affiliates'); ?></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?php echo $this->lang->line('more'); ?> <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -85,7 +91,22 @@ code {
             </li>
           </ul>
            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"><span class=""></span>Post a job</a></li>
+              <li><a href="<?php echo base_url('index.php/jobs'); ?>""><span class=""></span><?php echo $this->lang->line('post'); ?></a></li>
+              <?php
+              $valid_user = $this->session->userdata('valid_user');
+              ?>
+              <?php if($valid_user): ?>
+              <?php $user = $this->session->userdata('user_info');?>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#"><span class=""></span><?php echo $this->lang->line('hello').": ".$user->name; ?><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><?php echo $this->lang->line('profile'); ?></a></li>
+                  <li><a href="<?php echo base_url('index.php/admin'); ?>"><?php echo $this->lang->line('admin_site'); ?></a></li>
+                </ul>
+              </li>
+              <?php else: ?>
+              <li><a href="<?php echo base_url('index.php/login'); ?>"><span class=""></span><?php echo $this->lang->line('login'); ?></a></li>
+              <?php endif; ?>
             </ul>
         </div><!--/.nav-collapse -->
       </div>

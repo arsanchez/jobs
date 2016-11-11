@@ -20,7 +20,8 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('includes/header');
+		$data = array('selected_tab' => "home");
+		$this->load->view('includes/header',$data);
 		$this->load->view('home_view');
 		$this->load->view('includes/footer');
 
